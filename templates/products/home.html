@@ -1,0 +1,161 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+    {% if selected_category %}
+        {{ selected_category.name }} | Jewelry Store
+    {% else %}
+        Home | Jewelry Store
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+<!-- Page Heading -->
+<div class="text-center my-5">
+
+    {% if selected_category %}
+
+        <h1>{{ selected_category.name }}</h1>
+
+        <p>
+            Explore our {{ selected_category.name }} collection.
+        </p>
+
+        <a href="{% url 'home' %}" class="btn btn-outline-dark btn-sm">
+            Show All Products
+        </a>
+
+    {% else %}
+
+        <h1>Discover Our Jewelry Collection</h1>
+
+        <p>Beautiful accessories for every moment.</p>
+
+    {% endif %}
+
+</div>
+
+
+<!-- Products -->
+<div class="row">
+
+    {% for product in products %}
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card h-100 shadow-sm">
+
+                <!-- Product Image -->
+                {% with images=product.images.all %}
+
+                    {% if images %}
+
+                        {% for image in images %}
+
+                            {% if image.is_main %}
+
+                                <img src="{{ image.image_url }}"
+                                     class="card-img-top"
+                                     alt="{{ product.name }}"
+                                     style="height: 250px; object-fit: cover;">
+
+                            {% endif %}
+
+                        {% empty %}
+
+                            <div class="bg-light text-center p-5">
+                                No image available
+                            </div>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <div class="bg-light text-center p-5">
+                            No image available
+                        </div>
+
+                    {% endif %}
+
+                {% endwith %}
+
+
+                <!-- Product Information -->
+                <div class="card-body">
+
+                    <h5 class="card-title">
+                        {{ product.name }}
+                    </h5>
+
+                    <p class="card-text">
+                        {{ product.description|truncatewords:15 }}
+                    </p>
+
+                    <!-- Product Price -->
+                    <p class="fw-bold">
+
+                        {% if product.discount > 0 %}
+
+                            <span class="text-decoration-line-through text-muted">
+                                {{ product.price }}
+                            </span>
+
+                            <br>
+
+                            <span class="text-danger">
+                                {{ product.price }}
+                            </span>
+
+                            <span class="badge bg-danger">
+                                {{ product.discount }}% OFF
+                            </span>
+
+                        {% else %}
+
+                            {{ product.price }}
+
+                        {% endif %}
+
+                    </p>
+
+
+                    <!-- View Product -->
+                    <a href="{% url 'product_detail' product.id %}"
+                       class="btn btn-dark">
+
+                        View Product
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    {% empty %}
+
+        <div class="col-12 text-center my-5">
+
+            {% if selected_category %}
+
+                <h4>No products found in this category.</h4>
+
+                <p class="text-muted">
+                    Please check back later.
+                </p>
+
+            {% else %}
+
+                <h4>No products available yet.</h4>
+
+            {% endif %}
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

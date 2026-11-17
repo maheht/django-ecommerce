@@ -1,0 +1,65 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Login | Jewelry Store
+{% endblock %}
+
+{% block content %}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+
+            <div class="card shadow-sm border-0 p-4">
+
+                <h2 class="text-center mb-3">
+                    Welcome Back
+                </h2>
+
+                <p class="text-center text-muted mb-4">
+                    Login to your account
+                </p>
+
+                <form method="POST">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label class="form-label">
+                            Phone Number
+                        </label>
+                        <input type="text"
+                               name="phone"
+                               class="form-control"
+                               required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">
+                            Password
+                        </label>
+                        <input type="password"
+                               name="password"
+                               class="form-control"
+                               required>
+                    </div>
+
+                    <button type="submit"
+                            class="btn btn-dark w-100">
+                        Login
+                    </button>
+                </form>
+
+                <p class="text-center mt-4">
+                    Don't have an account?
+                    <a href="{% url 'register' %}">
+                        Register
+                    </a>
+                </p>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

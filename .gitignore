@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+db_backup.sqlite3
+db_backup_before_upload.sqlite3
+media/
+staticfiles/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Virtual environments
+venv/
+env/
+.venv/
+virtualenv/
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+
+# Temporary and archive files
+*.zip
+*.tgz
+*.tar.gz
+
+# Test and coverage
+.coverage
+htmlcov/
+.pytest_cache/
